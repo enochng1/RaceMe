@@ -7,9 +7,12 @@
 //
 
 import UIKit
+import Mapbox
 
-class TrainViewController: UIViewController {
+class TrainViewController: UIViewController,  MGLMapViewDelegate {
 
+    @IBOutlet weak var mapView: MGLMapView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

@@ -7,9 +7,10 @@
 //
 
 import UIKit
+import Mapbox
 
 
-class ViewController: UIViewController, UIScrollViewDelegate {
+class ViewController: UIViewController, UIScrollViewDelegate{
 
     @IBOutlet weak var scrollView: UIScrollView!
     
@@ -32,6 +33,18 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         self.view.layoutIfNeeded()
         
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     @IBAction func trainNavButtonPressed(sender: UIButton) {
         //animation for resetting the content to the particular view controller and also adjusting scroller

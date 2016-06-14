@@ -24,27 +24,33 @@
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rwv-ec-jh3">
                                         <rect key="frame" x="73" y="15" width="34" height="30"/>
-                                        <state key="normal" title="Train"/>
+                                        <state key="normal" title="Train">
+                                            <color key="titleColor" red="0.0" green="0.81794100999999997" blue="0.71402037139999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
                                         <connections>
                                             <action selector="trainNavButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="PxP-XA-U4i"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y32-3I-YV2">
                                         <rect key="frame" x="268.5" y="15" width="63" height="30"/>
-                                        <state key="normal" title="Compete"/>
+                                        <state key="normal" title="Compete">
+                                            <color key="titleColor" red="0.0" green="0.81794100999999997" blue="0.71402037139999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
                                         <connections>
                                             <action selector="competeNavButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="nMn-Zv-kqO"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ba4-Dl-sN2">
                                         <rect key="frame" x="451.5" y="15" width="57" height="30"/>
-                                        <state key="normal" title="Records"/>
+                                        <state key="normal" title="Records">
+                                            <color key="titleColor" red="0.0" green="0.81794100999999997" blue="0.71402037139999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
                                         <connections>
                                             <action selector="recordsNavButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="0Pj-1u-Wjg"/>
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" red="0.017718596352574653" green="0.097182719370165316" blue="0.7127942825112108" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="rwv-ec-jh3" firstAttribute="centerY" secondItem="ym0-56-s8O" secondAttribute="centerY" id="1Xz-BS-g7O"/>
                                     <constraint firstItem="rwv-ec-jh3" firstAttribute="width" secondItem="ym0-56-s8O" secondAttribute="height" multiplier="1:1" id="At7-Ah-jWR"/>
@@ -62,7 +68,7 @@
                                     </mask>
                                 </variation>
                             </view>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" pagingEnabled="YES" showsVerticalScrollIndicator="NO" indicatorStyle="white" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bAg-N7-ukL" userLabel="ScrollView">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" indicatorStyle="white" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bAg-N7-ukL" userLabel="ScrollView">
                                 <rect key="frame" x="0.0" y="20" width="600" height="476"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JZv-gt-1Av" userLabel="ContentView">
@@ -113,6 +119,7 @@
                                         </variation>
                                     </view>
                                 </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="JZv-gt-1Av" firstAttribute="top" secondItem="bAg-N7-ukL" secondAttribute="top" id="0M0-Lb-Fdo"/>
                                     <constraint firstItem="JZv-gt-1Av" firstAttribute="width" secondItem="bAg-N7-ukL" secondAttribute="width" multiplier="3" id="A9f-JU-rx6"/>
@@ -146,13 +153,13 @@
                             </scrollView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p9s-KZ-hgL" userLabel="Scroller">
                                 <rect key="frame" x="0.0" y="498" width="201" height="5"/>
-                                <color key="backgroundColor" red="0.99594718217849731" green="0.99611717462539673" blue="0.99593645334243774" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.0" green="0.81794100999999997" blue="0.71402037139999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="5" id="S7g-MM-xU6"/>
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="bAg-N7-ukL" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="1Ty-zl-y8L"/>
                             <constraint firstItem="bAg-N7-ukL" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="8S6-WO-ArE"/>
@@ -215,7 +222,6 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="kO0-Gy-zgp" firstAttribute="centerX" secondItem="2wi-n0-QnR" secondAttribute="centerX" id="Bam-Uk-ttT"/>
                             <constraint firstItem="kO0-Gy-zgp" firstAttribute="centerY" secondItem="2wi-n0-QnR" secondAttribute="centerY" id="gQH-Th-eTU"/>
@@ -226,27 +232,57 @@
             </objects>
             <point key="canvasLocation" x="722" y="1026"/>
         </scene>
-        <!--Train View Controller-->
+        <!--TrainViewController-->
         <scene sceneID="LUd-LP-dQh">
             <objects>
-                <viewController id="gJI-Ow-dLy" customClass="TrainViewController" customModule="RaceMe" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="gJI-Ow-dLy" userLabel="TrainViewController" customClass="TrainViewController" customModule="RaceMe" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="FrA-Cc-hBh"/>
+                        <viewControllerLayoutGuide type="bottom" id="Dje-0d-K6q"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="VlO-YJ-FYV">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="476"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Train" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jRz-EI-75g">
-                                <rect key="frame" x="281" y="227" width="38" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pXv-gf-wQm" customClass="MGLMapView">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="285.5"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="tintColor" red="0.0" green="0.81794100999999997" blue="0.71402037139999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="styleURL__" value="mapbox://styles/mapbox/dark-v9"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="zoomLevel">
+                                        <real key="value" value="16"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="latitude">
+                                        <real key="value" value="49.274321999999998"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="longitude">
+                                        <real key="value" value="-123.121561"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="showsUserLocation" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="allowsTilting" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <outlet property="delegate" destination="gJI-Ow-dLy" id="Vxb-Yr-nYU"/>
+                                </connections>
+                            </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="jRz-EI-75g" firstAttribute="centerX" secondItem="VlO-YJ-FYV" secondAttribute="centerX" id="DHO-rz-h4U"/>
-                            <constraint firstItem="jRz-EI-75g" firstAttribute="centerY" secondItem="VlO-YJ-FYV" secondAttribute="centerY" id="HGj-QK-m7A"/>
+                            <constraint firstItem="pXv-gf-wQm" firstAttribute="top" secondItem="FrA-Cc-hBh" secondAttribute="bottom" id="FfJ-fg-kij"/>
+                            <constraint firstItem="pXv-gf-wQm" firstAttribute="centerX" secondItem="VlO-YJ-FYV" secondAttribute="centerX" id="GjJ-wx-xzi"/>
+                            <constraint firstItem="pXv-gf-wQm" firstAttribute="height" secondItem="VlO-YJ-FYV" secondAttribute="height" multiplier="0.6" id="PzK-ph-pZr"/>
+                            <constraint firstItem="pXv-gf-wQm" firstAttribute="width" secondItem="VlO-YJ-FYV" secondAttribute="width" id="nQ4-Qw-Rra"/>
+                            <constraint firstItem="pXv-gf-wQm" firstAttribute="centerY" secondItem="VlO-YJ-FYV" secondAttribute="centerY" id="yik-rM-QMV"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="yik-rM-QMV"/>
+                            </mask>
+                        </variation>
                     </view>
+                    <connections>
+                        <outlet property="mapView" destination="pXv-gf-wQm" id="ziQ-6s-hGe"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Sbi-UD-0MB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -256,6 +292,10 @@
         <scene sceneID="cAo-XY-ZHi">
             <objects>
                 <viewController id="nDg-9g-7Mi" customClass="RecordsViewController" customModule="RaceMe" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="uDB-8x-C1J"/>
+                        <viewControllerLayoutGuide type="bottom" id="DtQ-ml-lrF"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="XG8-XE-ckZ">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="476"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -267,7 +307,6 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="K3c-sh-01E" firstAttribute="centerX" secondItem="XG8-XE-ckZ" secondAttribute="centerX" id="7iT-XR-sQi"/>
                             <constraint firstItem="K3c-sh-01E" firstAttribute="centerY" secondItem="XG8-XE-ckZ" secondAttribute="centerY" id="fEr-OM-LBC"/>
