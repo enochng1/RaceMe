@@ -249,28 +249,30 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="tintColor" red="0.0" green="0.81794100999999997" blue="0.71402037139999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="styleURL__" value="mapbox://styles/mapbox/dark-v9"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="styleURL__" value="mapbox://styles/mapbox/outdoors-v9"/>
                                     <userDefinedRuntimeAttribute type="number" keyPath="zoomLevel">
-                                        <real key="value" value="16"/>
+                                        <real key="value" value="0.0"/>
                                     </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="latitude">
-                                        <real key="value" value="49.274321999999998"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="longitude">
-                                        <real key="value" value="-123.121561"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="showsUserLocation" value="YES"/>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="allowsTilting" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="showsUserLocation" value="NO"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <outlet property="delegate" destination="gJI-Ow-dLy" id="Vxb-Yr-nYU"/>
                                 </connections>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NSF-7x-5u8" userLabel="Start Tracking">
+                                <rect key="frame" x="251.5" y="371" width="97" height="30"/>
+                                <state key="normal" title="Start Tracking"/>
+                                <connections>
+                                    <action selector="startTracking:" destination="gJI-Ow-dLy" eventType="touchUpInside" id="z0b-1Q-TcU"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
+                            <constraint firstItem="Dje-0d-K6q" firstAttribute="top" secondItem="NSF-7x-5u8" secondAttribute="bottom" constant="75" id="3jq-xK-XP6"/>
                             <constraint firstItem="pXv-gf-wQm" firstAttribute="top" secondItem="FrA-Cc-hBh" secondAttribute="bottom" id="FfJ-fg-kij"/>
                             <constraint firstItem="pXv-gf-wQm" firstAttribute="centerX" secondItem="VlO-YJ-FYV" secondAttribute="centerX" id="GjJ-wx-xzi"/>
                             <constraint firstItem="pXv-gf-wQm" firstAttribute="height" secondItem="VlO-YJ-FYV" secondAttribute="height" multiplier="0.6" id="PzK-ph-pZr"/>
+                            <constraint firstItem="NSF-7x-5u8" firstAttribute="centerX" secondItem="VlO-YJ-FYV" secondAttribute="centerX" id="Qnv-Iq-gaj"/>
                             <constraint firstItem="pXv-gf-wQm" firstAttribute="width" secondItem="VlO-YJ-FYV" secondAttribute="width" id="nQ4-Qw-Rra"/>
                             <constraint firstItem="pXv-gf-wQm" firstAttribute="centerY" secondItem="VlO-YJ-FYV" secondAttribute="centerY" id="yik-rM-QMV"/>
                         </constraints>
