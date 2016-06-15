@@ -4,6 +4,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
@@ -246,10 +247,10 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pXv-gf-wQm" customClass="MGLMapView">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="285.5"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="tintColor" red="0.0" green="0.81794100999999997" blue="0.71402037139999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="styleURL__" value="mapbox://styles/mapbox/outdoors-v9"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="styleURL__" value="mapbox://styles/mapbox/dark-v9"/>
                                     <userDefinedRuntimeAttribute type="number" keyPath="zoomLevel">
                                         <real key="value" value="0.0"/>
                                     </userDefinedRuntimeAttribute>
@@ -260,19 +261,45 @@
                                 </connections>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NSF-7x-5u8" userLabel="Start Tracking">
-                                <rect key="frame" x="251.5" y="371" width="97" height="30"/>
-                                <state key="normal" title="Start Tracking"/>
+                                <rect key="frame" x="431.5" y="371" width="97" height="30"/>
+                                <state key="normal" title="Start Tracking">
+                                    <color key="titleColor" red="1" green="0.67013703193177776" blue="0.00012397462700286521" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
                                 <connections>
                                     <action selector="startTracking:" destination="gJI-Ow-dLy" eventType="touchUpInside" id="z0b-1Q-TcU"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Distance" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Ks-Ah-LDr">
+                                <rect key="frame" x="50" y="307" width="67" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.81794100999999997" blue="0.71402037139999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gbl-Ev-nAj">
+                                <rect key="frame" x="50" y="342" width="38" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.81794100999999997" blue="0.71402037139999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current Pace" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XK5-FG-4OH">
+                                <rect key="frame" x="50" y="380" width="100" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.81794100999999997" blue="0.71402037139999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <constraints>
                             <constraint firstItem="Dje-0d-K6q" firstAttribute="top" secondItem="NSF-7x-5u8" secondAttribute="bottom" constant="75" id="3jq-xK-XP6"/>
+                            <constraint firstItem="1Ks-Ah-LDr" firstAttribute="leading" secondItem="VlO-YJ-FYV" secondAttribute="leadingMargin" constant="30" id="CxP-Rk-SV1"/>
                             <constraint firstItem="pXv-gf-wQm" firstAttribute="top" secondItem="FrA-Cc-hBh" secondAttribute="bottom" id="FfJ-fg-kij"/>
                             <constraint firstItem="pXv-gf-wQm" firstAttribute="centerX" secondItem="VlO-YJ-FYV" secondAttribute="centerX" id="GjJ-wx-xzi"/>
+                            <constraint firstItem="1Ks-Ah-LDr" firstAttribute="top" secondItem="pXv-gf-wQm" secondAttribute="bottom" constant="21.5" id="O13-oa-82a"/>
                             <constraint firstItem="pXv-gf-wQm" firstAttribute="height" secondItem="VlO-YJ-FYV" secondAttribute="height" multiplier="0.6" id="PzK-ph-pZr"/>
-                            <constraint firstItem="NSF-7x-5u8" firstAttribute="centerX" secondItem="VlO-YJ-FYV" secondAttribute="centerX" id="Qnv-Iq-gaj"/>
+                            <constraint firstItem="NSF-7x-5u8" firstAttribute="centerX" secondItem="VlO-YJ-FYV" secondAttribute="centerX" multiplier="1.6" id="Qnv-Iq-gaj"/>
+                            <constraint firstItem="Gbl-Ev-nAj" firstAttribute="leading" secondItem="1Ks-Ah-LDr" secondAttribute="leading" id="ZKd-Jt-rn1"/>
+                            <constraint firstItem="Gbl-Ev-nAj" firstAttribute="top" secondItem="1Ks-Ah-LDr" secondAttribute="bottom" constant="14" id="hfo-ej-s8h"/>
+                            <constraint firstItem="XK5-FG-4OH" firstAttribute="top" secondItem="Gbl-Ev-nAj" secondAttribute="bottom" constant="17" id="ksm-0z-LOs"/>
+                            <constraint firstItem="XK5-FG-4OH" firstAttribute="leading" secondItem="Gbl-Ev-nAj" secondAttribute="leading" id="mvL-we-igm"/>
                             <constraint firstItem="pXv-gf-wQm" firstAttribute="width" secondItem="VlO-YJ-FYV" secondAttribute="width" id="nQ4-Qw-Rra"/>
                             <constraint firstItem="pXv-gf-wQm" firstAttribute="centerY" secondItem="VlO-YJ-FYV" secondAttribute="centerY" id="yik-rM-QMV"/>
                         </constraints>
@@ -283,7 +310,10 @@
                         </variation>
                     </view>
                     <connections>
+                        <outlet property="distanceLabel" destination="1Ks-Ah-LDr" id="PCs-8d-0NN"/>
                         <outlet property="mapView" destination="pXv-gf-wQm" id="ziQ-6s-hGe"/>
+                        <outlet property="paceLabel" destination="XK5-FG-4OH" id="D3d-zY-elo"/>
+                        <outlet property="timeLabel" destination="Gbl-Ev-nAj" id="G5Q-wq-cuQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Sbi-UD-0MB" userLabel="First Responder" sceneMemberID="firstResponder"/>
