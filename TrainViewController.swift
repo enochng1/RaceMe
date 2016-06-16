@@ -22,7 +22,13 @@ class TrainViewController: UIViewController,  MGLMapViewDelegate, CLLocationMana
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var distanceLabel: UILabel!
     
+    @IBOutlet weak var trackingAreaHeightConstant: NSLayoutConstraint!
+    @IBOutlet weak var trackingAreaLabel: UILabel!
+    @IBOutlet weak var trackingAreaContainerView: UIView!
+    @IBOutlet weak var pinpointLocationButton: UIButton!
+    
     var currentLocation : CLLocation!
+    var trackStartingArea : String?
     
     var sessionRun : Run?
     lazy var sessionPaces = [Double]()
@@ -68,21 +74,40 @@ class TrainViewController: UIViewController,  MGLMapViewDelegate, CLLocationMana
         //        } else {
         //             print(currentLocation.coordinate)
         //        }
-        
-        
+         
         //update current location
         currentLocation = locations.last
         
         if(tracking){
             
-            mapView.userTrackingMode = .FollowWithHeading
             updateRun()
             
         } else {
-            //set map to current location and wait for tracking to begin
-            mapView.setCenterCoordinate(currentLocation.coordinate, animated:true)
+            
+            if(self.trackStartingArea == nil){
+                //set trackStartingArea
+                CLGeocoder().reverseGeocodeLocation(self.currentLocation, completionHandler: {(placemarks, error) -> Void in
+                    if error != nil {
+                        print("Reverse geocoder failed with error" + error!.localizedDescription)
+                        return
+                    }
+                    if placemarks?.count > 0 {
+                        let pm = placemarks![0]
+                        self.trackStartingArea = pm.locality
+                        self.trackingAreaLabel.text = "Track Location: "+self.trackStartingArea!
+                        print("located")
+                    }
+                    else {
+                        print("Problem with the data received from geocoder")
+                    }
+                })
+                //set map to current location and wait for tracking to begin
+                mapView.setCenterCoordinate(currentLocation.coordinate, animated:true)
+                
+            }
+            
         }
-    }
+    }    
     
     @IBAction func startTracking(sender: UIButton) {
         
@@ -90,19 +115,35 @@ class TrainViewController: UIViewController,  MGLMapViewDelegate, CLLocationMana
             tracking = false
             print("   ")
             print("end run")
-                print("   ")
+            print("   ")
             //staticCamera = MGLMapCamera(lookingAtCenterCoordinate: currentLocation.coordinate, fromDistance: 50, pitch: 0.0, heading: 0)
             // mapView.setCamera(staticCamera, animated: true)
             timer.invalidate()
             
             sessionRun?.totalAveragePace = (sessionPaces.reduce(0, combine:+)) / Double(sessionPaces.count)
-            print(sessionRun)
+            sessionRun?.areaLocation = trackStartingArea
             print(sessionRun?.dateRan)
             print(sessionRun?.totalDistance)
             print(sessionRun?.totalAveragePace)
             print(sessionRun?.totalTime)
+            print(sessionRun?.areaLocation)
             
+            //UIupdates
+            
+            mapView.tintColor = UIColor(red: 0.0, green: 0.817, blue: 0.714, alpha: 1.0)
+  
             updateUI()
+            
+            UIView.animateWithDuration(0.5, delay: 0, options: .CurveEaseInOut, animations: {
+                self.trackingAreaLabel.alpha = 1.0
+                }, completion: nil)
+            
+            self.trackingAreaHeightConstant.constant = 30.0
+            UIView.animateWithDuration(1, delay: 0, options: .CurveEaseInOut, animations: {
+                self.trackingAreaContainerView.alpha = 1.0
+                self.trackingAreaContainerView.layoutIfNeeded()
+                self.pinpointLocationButton.alpha = 0.8
+                }, completion: nil)
             
         } else {
             tracking = true
@@ -117,6 +158,21 @@ class TrainViewController: UIViewController,  MGLMapViewDelegate, CLLocationMana
             sessionRun?.trackedLocations = [CLLocation]()
             sessionRun?.dateRan = NSDate()
             timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(secondIncrement), userInfo: nil, repeats: true)
+            
+            //UIupdates & animate
+            mapView.tintColor = .orangeColor()
+                
+            UIView.animateWithDuration(0.5, delay: 0, options: .CurveEaseInOut, animations: {
+                self.trackingAreaLabel.alpha = 0.0
+                }, completion: nil)
+            
+            self.trackingAreaHeightConstant.constant = 0.0
+            UIView.animateWithDuration(1, delay: 0, options: .CurveEaseInOut, animations: {
+                self.trackingAreaContainerView.alpha = 0.0
+                self.trackingAreaContainerView.layoutIfNeeded()
+                self.pinpointLocationButton.alpha = 0.0
+                }, completion: nil)
+    
         }
         
     }
@@ -130,8 +186,8 @@ class TrainViewController: UIViewController,  MGLMapViewDelegate, CLLocationMana
     
     func secondIncrement(){
         sessionRun?.totalTime = (sessionRun?.totalTime)! + 1
-        
-        //update the UI so it reflects the useful information
+
+        //update the UI so it reflects the useful information by the second
         updateUI()
     }
     
@@ -150,10 +206,17 @@ class TrainViewController: UIViewController,  MGLMapViewDelegate, CLLocationMana
     
     }
     
+    @IBAction func pinpointButtonPressed(sender: UIButton) {
+        
+        if(self.currentLocation != nil){
+             mapView.setCenterCoordinate(currentLocation.coordinate, animated:true)
+        }
+        
+    }
+    
     func drawRun(){
         
         var coordinates: [CLLocationCoordinate2D] = []
-        
         for trackedLocation in (sessionRun?.trackedLocations)! {
             
             let coordinate = trackedLocation.coordinate
@@ -164,6 +227,10 @@ class TrainViewController: UIViewController,  MGLMapViewDelegate, CLLocationMana
         mapView.addAnnotation(line)
     }
     
+    func endOfRace(){
+    
+//        mapView.setVisibleCoordinates(<#T##coordinates: UnsafeMutablePointer<CLLocationCoordinate2D>##UnsafeMutablePointer<CLLocationCoordinate2D>#>, count: <#T##UInt#>, edgePadding: <#T##UIEdgeInsets#>, animated: <#T##Bool#>)
+    }
     
     
 }
