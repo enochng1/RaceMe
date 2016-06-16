@@ -9,6 +9,7 @@
 import UIKit
 import Mapbox
 import CoreLocation
+import RealmSwift
 
 class TrainViewController: UIViewController,  MGLMapViewDelegate, CLLocationManagerDelegate {
     
@@ -28,6 +29,7 @@ class TrainViewController: UIViewController,  MGLMapViewDelegate, CLLocationMana
     @IBOutlet weak var pinpointLocationButton: UIButton!
     
     var currentLocation : CLLocation!
+    var trackedLocations = [CLLocation]()
     var trackStartingArea : String?
     
     var sessionRun : Run?
@@ -43,6 +45,9 @@ class TrainViewController: UIViewController,  MGLMapViewDelegate, CLLocationMana
         return manager
     }()
     
+    let uiRealm = try! Realm()
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -56,6 +61,7 @@ class TrainViewController: UIViewController,  MGLMapViewDelegate, CLLocationMana
         //setup zoomLevel
         mapView.showsUserLocation = true
         mapView.zoomLevel = 16
+ 
         
     }
     
@@ -128,8 +134,30 @@ class TrainViewController: UIViewController,  MGLMapViewDelegate, CLLocationMana
             print(sessionRun?.totalTime)
             print(sessionRun?.areaLocation)
             
-            //UIupdates
+  
+            for location in trackedLocations{
+                
+                let realmLocation = RealmCLLocation()
+                realmLocation.speed = location.speed
+                realmLocation.lat = location.coordinate.latitude
+                realmLocation.lng = location.coordinate.longitude
+                
+                sessionRun?.realmTrackedLocations.append(realmLocation)                
+            }
             
+            try! uiRealm.write { () -> Void in
+                uiRealm.add(sessionRun!)
+                
+            }
+            
+            let allRuns = uiRealm.objects(Run.self)
+            print(allRuns)
+            
+            for run in allRuns {
+                print(run.realmTrackedLocations)
+            }
+            
+            //UIupdates
             mapView.tintColor = UIColor(red: 0.0, green: 0.817, blue: 0.714, alpha: 1.0)
   
             updateUI()
@@ -155,7 +183,7 @@ class TrainViewController: UIViewController,  MGLMapViewDelegate, CLLocationMana
             
             //setup run object to prepare for location updates
             sessionRun = Run()
-            sessionRun?.trackedLocations = [CLLocation]()
+            trackedLocations = [CLLocation]()
             sessionRun?.dateRan = NSDate()
             timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(secondIncrement), userInfo: nil, repeats: true)
             
@@ -194,7 +222,7 @@ class TrainViewController: UIViewController,  MGLMapViewDelegate, CLLocationMana
     func updateRun(){
         
         //add the next location
-        sessionRun?.trackedLocations.append(currentLocation)
+        trackedLocations.append(currentLocation)
         mapView.setCenterCoordinate(currentLocation.coordinate, animated:true)
         
         //draw the run path
@@ -217,7 +245,7 @@ class TrainViewController: UIViewController,  MGLMapViewDelegate, CLLocationMana
     func drawRun(){
         
         var coordinates: [CLLocationCoordinate2D] = []
-        for trackedLocation in (sessionRun?.trackedLocations)! {
+        for trackedLocation in (trackedLocations) {
             
             let coordinate = trackedLocation.coordinate
             coordinates.append(coordinate)

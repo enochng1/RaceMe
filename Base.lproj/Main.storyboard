@@ -248,8 +248,8 @@
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0kN-y5-zQm" userLabel="Map View Container">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="285.5"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pXv-gf-wQm" customClass="MGLMapView">
-                                        <rect key="frame" x="0.0" y="1" width="600" height="284"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pXv-gf-wQm" customClass="MGLMapView">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="315.5"/>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         <color key="tintColor" red="0.0" green="0.81794100999999997" blue="0.71402037139999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <userDefinedRuntimeAttributes>
@@ -283,8 +283,8 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="600" height="30"/>
                                                 <color key="backgroundColor" red="0.0" green="0.8202628493309021" blue="0.71437329053878784" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </view>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.10000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="9Rs-0t-5VM" userLabel="trackingArea">
-                                                <rect key="frame" x="279" y="5" width="42" height="21"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.10000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="9Rs-0t-5VM" userLabel="trackingArea">
+                                                <rect key="frame" x="300" y="15" width="0.0" height="0.0"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <color key="textColor" red="0.99594718217849731" green="0.99611717462539673" blue="0.99593645334243774" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -314,8 +314,8 @@
                                     <constraint firstItem="pXv-gf-wQm" firstAttribute="top" secondItem="0kN-y5-zQm" secondAttribute="top" id="z2o-IE-KsV"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NSF-7x-5u8" userLabel="Start Tracking">
-                                <rect key="frame" x="431" y="371" width="97" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NSF-7x-5u8" userLabel="Start Tracking">
+                                <rect key="frame" x="432.5" y="371" width="94" height="30"/>
                                 <state key="normal" title="Start Running">
                                     <color key="titleColor" red="1" green="0.67013703193177776" blue="0.00012397462700286521" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
