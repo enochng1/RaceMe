@@ -10,14 +10,14 @@ import UIKit
 import Mapbox
 import CoreLocation
 import RealmSwift
+import QuartzCore
 
-class TrainViewController: UIViewController,  MGLMapViewDelegate, CLLocationManagerDelegate {
+class TrainViewController: UIViewController,  MGLMapViewDelegate, LocationManagerDelegate, setAsCurrentViewControllerDelegate{
     
     @IBOutlet weak var mapView: MGLMapView!
     
-    var tracking:Bool = (false)
-    var trackCamera : MGLMapCamera!
-    var staticCamera : MGLMapCamera!
+    var didSetup:Bool = false
+    var tracking:Bool = false
     
     @IBOutlet weak var paceLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
@@ -29,180 +29,112 @@ class TrainViewController: UIViewController,  MGLMapViewDelegate, CLLocationMana
     @IBOutlet weak var pinpointLocationButton: UIButton!
     
     var currentLocation : CLLocation!
-    var trackedLocations = [CLLocation]()
     var trackStartingArea : String?
+    var checkPointTracker = 1.0
     
     var sessionRun : Run?
     lazy var sessionPaces = [Double]()
     lazy var timer = NSTimer()
     
-    lazy var locationManager: CLLocationManager! = {
-        let manager = CLLocationManager()
-        manager.desiredAccuracy = kCLLocationAccuracyBest
-        manager.delegate = self
-        //        manager.distanceFilter = 1.0
-        manager.requestAlwaysAuthorization()
-        return manager
-    }()
+    var locationManager = LocationManager.sharedInstance
     
     let uiRealm = try! Realm()
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         mapView.delegate = self
-        locationManager.delegate = self
-        
-        if(CLLocationManager.authorizationStatus() == .NotDetermined){
-            locationManager.requestAlwaysAuthorization()
-        }
-        
-        //setup zoomLevel
-        mapView.showsUserLocation = true
-        mapView.zoomLevel = 16
- 
-        
-    }
-    
-    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
-        if(status == .AuthorizedAlways){
-            locationManager.startUpdatingLocation()
-        }
+
+        locationManager.LMDelegate = self
     }
     
     
-    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        
-        //test to see if tracking location in background
-        //        if UIApplication.sharedApplication().applicationState == .Active {
-        //             print(currentLocation.coordinate)
-        //        } else {
-        //             print(currentLocation.coordinate)
-        //        }
-         
-        //update current location
-        currentLocation = locations.last
+    func registerAsCurrentViewController(){
+    locationManager.LMDelegate = self
+    }
+    
+    func updatedLocation(currentLocation: CLLocation) {
+
+        self.currentLocation = currentLocation
         
         if(tracking){
-            
             updateRun()
-            
         } else {
             
-            if(self.trackStartingArea == nil){
-                //set trackStartingArea
-                CLGeocoder().reverseGeocodeLocation(self.currentLocation, completionHandler: {(placemarks, error) -> Void in
-                    if error != nil {
-                        print("Reverse geocoder failed with error" + error!.localizedDescription)
-                        return
-                    }
-                    if placemarks?.count > 0 {
-                        let pm = placemarks![0]
-                        self.trackStartingArea = pm.locality
-                        self.trackingAreaLabel.text = "Track Location: "+self.trackStartingArea!
-                        print("located")
-                    }
-                    else {
-                        print("Problem with the data received from geocoder")
-                    }
-                })
-                //set map to current location and wait for tracking to begin
-                mapView.setCenterCoordinate(currentLocation.coordinate, animated:true)
-                
+            if(!didSetup){
+                preTrackSetup()
+                didSetup = true
             }
-            
         }
-    }    
+    }
+    
+    
+    func preTrackSetup(){
+        
+        CLGeocoder().reverseGeocodeLocation(self.currentLocation, completionHandler: {(placemarks, error) -> Void in
+            if error != nil {
+                print("Reverse geocoder failed with error" + error!.localizedDescription)
+                return
+            }
+            if placemarks?.count > 0 {
+                let pm = placemarks![0]
+                self.trackStartingArea = pm.locality
+                self.trackingAreaLabel.text = "Track Location: "+self.trackStartingArea!
+                self.mapView.setCenterCoordinate(self.currentLocation.coordinate, animated:true)
+                print("located")
+            }
+            else {
+                print("Problem with the data received from geocoder")
+            }
+          })
+        
+        //setup zoomLevel
+        self.mapView.showsUserLocation = true
+        self.mapView.zoomLevel = 15
+    }
     
     @IBAction func startTracking(sender: UIButton) {
         
         if(tracking){
             tracking = false
-            print("   ")
-            print("end run")
-            print("   ")
-            //staticCamera = MGLMapCamera(lookingAtCenterCoordinate: currentLocation.coordinate, fromDistance: 50, pitch: 0.0, heading: 0)
-            // mapView.setCamera(staticCamera, animated: true)
-            timer.invalidate()
-            
-            sessionRun?.totalAveragePace = (sessionPaces.reduce(0, combine:+)) / Double(sessionPaces.count)
-            sessionRun?.areaLocation = trackStartingArea
-            print(sessionRun?.dateRan)
-            print(sessionRun?.totalDistance)
-            print(sessionRun?.totalAveragePace)
-            print(sessionRun?.totalTime)
-            print(sessionRun?.areaLocation)
-            
-  
-            for location in trackedLocations{
-                
-                let realmLocation = RealmCLLocation()
-                realmLocation.speed = location.speed
-                realmLocation.lat = location.coordinate.latitude
-                realmLocation.lng = location.coordinate.longitude
-                
-                sessionRun?.realmTrackedLocations.append(realmLocation)                
-            }
-            
-            try! uiRealm.write { () -> Void in
-                uiRealm.add(sessionRun!)
-                
-            }
-            
-            let allRuns = uiRealm.objects(Run.self)
-            print(allRuns)
-            
-            for run in allRuns {
-                print(run.realmTrackedLocations)
-            }
-            
-            //UIupdates
-            mapView.tintColor = UIColor(red: 0.0, green: 0.817, blue: 0.714, alpha: 1.0)
-  
             updateUI()
-            
-            UIView.animateWithDuration(0.5, delay: 0, options: .CurveEaseInOut, animations: {
-                self.trackingAreaLabel.alpha = 1.0
-                }, completion: nil)
-            
-            self.trackingAreaHeightConstant.constant = 30.0
-            UIView.animateWithDuration(1, delay: 0, options: .CurveEaseInOut, animations: {
-                self.trackingAreaContainerView.alpha = 1.0
-                self.trackingAreaContainerView.layoutIfNeeded()
-                self.pinpointLocationButton.alpha = 0.8
-                }, completion: nil)
+            endRun()
             
         } else {
             tracking = true
-                print("   ")
-            print("starting run")
-            print("   ")
-            //  trackCamera = MGLMapCamera(lookingAtCenterCoordinate: currentLocation.coordinate, fromDistance: 50, pitch: 60.0, heading: 0)
-            // mapView.setCamera(trackCamera, animated: true)
-            
-            //setup run object to prepare for location updates
-            sessionRun = Run()
-            trackedLocations = [CLLocation]()
-            sessionRun?.dateRan = NSDate()
-            timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(secondIncrement), userInfo: nil, repeats: true)
-            
-            //UIupdates & animate
-            mapView.tintColor = .orangeColor()
-                
-            UIView.animateWithDuration(0.5, delay: 0, options: .CurveEaseInOut, animations: {
-                self.trackingAreaLabel.alpha = 0.0
-                }, completion: nil)
-            
-            self.trackingAreaHeightConstant.constant = 0.0
-            UIView.animateWithDuration(1, delay: 0, options: .CurveEaseInOut, animations: {
-                self.trackingAreaContainerView.alpha = 0.0
-                self.trackingAreaContainerView.layoutIfNeeded()
-                self.pinpointLocationButton.alpha = 0.0
-                }, completion: nil)
-    
+            setUpRun()
         }
+    }
+    
+    func saveRunToRealm(){
+        //write to Realm
+        try! uiRealm.write { () -> Void in
+            uiRealm.add(sessionRun!)
+        }
+    }
+    
+    func setUpRun(){
+        //setup run object to prepare for location updates
+        sessionRun = Run()
+        sessionRun?.dateRan = NSDate()
+        sessionRun?.areaLocation = trackStartingArea
+        timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(secondIncrement), userInfo: nil, repeats: true)
         
+        //setup trackPointChecker
+        checkPointTracker = 1.0
+        
+        //UIupdates & animate
+        mapView.tintColor = .orangeColor()
+        UIView.animateWithDuration(0.5, delay: 0, options: .CurveEaseInOut, animations: {
+            self.trackingAreaLabel.alpha = 0.0
+            }, completion: nil)
+        
+        self.trackingAreaHeightConstant.constant = 0.0
+        UIView.animateWithDuration(1, delay: 0, options: .CurveEaseInOut, animations: {
+            self.trackingAreaContainerView.alpha = 0.0
+            self.trackingAreaContainerView.layoutIfNeeded()
+            self.pinpointLocationButton.alpha = 0.0
+            }, completion: nil)
     }
     
     func updateUI(){
@@ -214,51 +146,151 @@ class TrainViewController: UIViewController,  MGLMapViewDelegate, CLLocationMana
     
     func secondIncrement(){
         sessionRun?.totalTime = (sessionRun?.totalTime)! + 1
-
         //update the UI so it reflects the useful information by the second
         updateUI()
     }
     
     func updateRun(){
         
+        if sessionRun?.realmTrackedLocations.last != nil {
+            
+          let distanceBetweenLastPointAndCurrentLocation = currentLocation.distanceFromLocation(CLLocation(latitude: (sessionRun?.realmTrackedLocations.last!.lat)!, longitude: (sessionRun?.realmTrackedLocations.last?.lng)!))
+            
+            sessionRun?.totalDistance += distanceBetweenLastPointAndCurrentLocation/1000
+            
+        }
+    
+        //taking raw data from location manager and translating to useful information for the user
+        //sessionRun?.totalDistance += currentLocation.speed/1000
+        sessionPaces.append(1000/(currentLocation.speed*60))
+        
         //add the next location
-        trackedLocations.append(currentLocation)
+        let realmLocation = RealmCLLocation()
+        realmLocation.speed = 1000/(currentLocation.speed*60)
+        realmLocation.lat = currentLocation.coordinate.latitude
+        realmLocation.lng = currentLocation.coordinate.longitude
+        
+        if(sessionRun?.totalDistance > checkPointTracker){
+            realmLocation.checkPoint = Int(checkPointTracker)
+            print("checkpoint #"+String(format:"%0.0f",checkPointTracker))
+            checkPointTracker = checkPointTracker + 1.0
+        }
+        
+        
+        sessionRun?.realmTrackedLocations.append(realmLocation)
         mapView.setCenterCoordinate(currentLocation.coordinate, animated:true)
         
         //draw the run path
         drawRun()
-        
-        //taking raw data from location manager and translating to useful information for the user
-        sessionRun?.totalDistance += currentLocation.speed/1000
-        sessionPaces.append(1000/(currentLocation.speed*60))
     
     }
     
-    @IBAction func pinpointButtonPressed(sender: UIButton) {
+    func endRun(){
+        //stop timer
+        timer.invalidate()
+        checkPointTracker = 0.0
         
+        //calculate average page
+        //**
+//        sessionRun?.totalAveragePace =
+        
+            
+        sessionRun?.generateTrackName()
+        
+        //end Run UIupdates
+        mapView.tintColor = UIColor(red: 0.0, green: 0.817, blue: 0.714, alpha: 1.0)
+        
+        //centered on track
+        var coordinates: [CLLocationCoordinate2D] = []
+        for trackedLocation in (sessionRun?.realmTrackedLocations)! {
+            let coordinate = CLLocationCoordinate2DMake(trackedLocation.lat, trackedLocation.lng)
+            coordinates.append(coordinate)
+        }
+        mapView.setVisibleCoordinates(&coordinates, count: UInt(coordinates.count), edgePadding: UIEdgeInsetsMake(60.0, 40.0, 70.0, 40.0), animated: true)
+        
+        var checkPoints: [CLLocationCoordinate2D] = []
+        for trackedLocation in (sessionRun?.realmTrackedLocations)! {
+            if(trackedLocation.checkPoint > 0){
+                let checkPoint = CLLocationCoordinate2DMake(trackedLocation.lat, trackedLocation.lng)
+                checkPoints.append(checkPoint)
+                
+                let checkPointIndicator = MGLPointAnnotation()
+                checkPointIndicator.coordinate = checkPoint
+                checkPointIndicator.title = String(format: "%i km",trackedLocation.checkPoint)
+                mapView.addAnnotation(checkPointIndicator)
+            }
+        }
+        
+        self.trackingAreaLabel.text = sessionRun?.trackName
+        
+        UIView.animateWithDuration(0.5, delay: 0, options: .CurveEaseInOut, animations: {
+            self.trackingAreaLabel.alpha = 1.0
+            }, completion: nil)
+        
+        self.trackingAreaHeightConstant.constant = 30.0
+        UIView.animateWithDuration(1, delay: 0, options: .CurveEaseInOut, animations: {
+            self.trackingAreaContainerView.alpha = 1.0
+            self.trackingAreaContainerView.layoutIfNeeded()
+            self.pinpointLocationButton.alpha = 0.8
+            }, completion: nil)
+    }
+
+    @IBAction func pinpointButtonPressed(sender: UIButton) {
         if(self.currentLocation != nil){
              mapView.setCenterCoordinate(currentLocation.coordinate, animated:true)
         }
-        
     }
-    
+
     func drawRun(){
-        
         var coordinates: [CLLocationCoordinate2D] = []
-        for trackedLocation in (trackedLocations) {
-            
-            let coordinate = trackedLocation.coordinate
+        
+        for trackedLocation in (sessionRun?.realmTrackedLocations)! {
+            let coordinate = CLLocationCoordinate2DMake(trackedLocation.lat, trackedLocation.lng)
             coordinates.append(coordinate)
         }
-        
         let line = MGLPolyline(coordinates: &coordinates, count: UInt(coordinates.count))
         mapView.addAnnotation(line)
     }
-    
-    func endOfRace(){
-    
-//        mapView.setVisibleCoordinates(<#T##coordinates: UnsafeMutablePointer<CLLocationCoordinate2D>##UnsafeMutablePointer<CLLocationCoordinate2D>#>, count: <#T##UInt#>, edgePadding: <#T##UIEdgeInsets#>, animated: <#T##Bool#>)
+
+    func checkToSeeIfLocationsFetchingInBackground(){
+                if UIApplication.sharedApplication().applicationState == .Active {
+                     print(currentLocation.coordinate)
+                } else {
+                     print(currentLocation.coordinate)
+                }
+    }
+
+    func mapView(mapView: MGLMapView, annotationCanShowCallout annotation: MGLAnnotation) -> Bool {
+        return true
+    }
+
+    func saveTrackAsBitmap(){
+        //Get the size of the screen
+        let screenRect = UIScreen.mainScreen().bounds
+        
+        //Create a bitmap-based graphics context and make 
+        //it the current context passing in the screen size 
+        UIGraphicsBeginImageContext(screenRect.size);
+        
+        let ctx = UIGraphicsGetCurrentContext();
+        CGContextFillRect(ctx, screenRect);
+        
+        //render the receiver and its sublayers into the specified context 
+        //choose a view or use the window to get a screenshot of the 
+        //entire device
+        view.layer.renderInContext(ctx!)
+        let newImage = UIGraphicsGetImageFromCurrentImageContext();
+        //End the bitmap-based graphics context 
+        UIGraphicsEndImageContext();
+        //Save UIImage to camera roll 
+        UIImageWriteToSavedPhotosAlbum(newImage, nil, nil, nil);
     }
     
-    
+    @IBAction func saveRun(sender: UIButton) {
+        
+        if(!tracking){
+            saveRunToRealm()
+        }
+        
+    }
 }

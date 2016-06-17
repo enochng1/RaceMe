@@ -14,6 +14,6 @@ class RealmCLLocation : Object {
     dynamic var lat = 0.0
     dynamic var lng  = 0.0
     dynamic var speed  = 0.0
-    
+    dynamic var checkPoint = 0
     
 }

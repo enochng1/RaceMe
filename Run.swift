@@ -27,6 +27,23 @@ class Run : Object {
     dynamic var totalAveragePace = 0.0
     dynamic var totalTime = 0.0
     
+    func generateTrackName(){
+        
+        if(totalDistance > 1){
+            trackName = String(format: "%0.1f KM ",totalDistance)+areaLocation!+" Track"
+        } else {
+            trackName = String(format: "%0.0f Metres ",totalDistance*1000)+areaLocation!+" Track"
+        }
+        
+    }
+    
+    func totalDistanceTranslation() -> String{
+        if(totalDistance > 1){
+            return String(format: "%0.1f KM ",totalDistance)
+        } else {
+            return String(format: "%0.0f Metres ",totalDistance*1000)
+        }
+    }
     
     func totalTimeTranslation() -> String{
         
