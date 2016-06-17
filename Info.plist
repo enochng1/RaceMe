@@ -26,6 +26,8 @@
 	<string>pk.eyJ1IjoiZW5vY2huZzEiLCJhIjoiY2lwZnVqdjBzMDAyOHRjbWpyNmUyMTR3NCJ9.yM-aRFOaZyK0dEC2EBzBkA</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>RaceMe needs to use your location to start a run.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>RaceMe needs to use your location to start a run.</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>location</string>

@@ -9,14 +9,24 @@
 import UIKit
 import Mapbox
 
+protocol setAsCurrentViewControllerDelegate : class {
+    
+    func registerAsCurrentViewController()
+    
+}
 
 class ViewController: UIViewController, UIScrollViewDelegate{
 
     @IBOutlet weak var scrollView: UIScrollView!
     
+      var locationManager = LocationManager.sharedInstance
+    weak var VCDelegate : setAsCurrentViewControllerDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        locationManager.startLocationManager()
     }
 
     @IBOutlet weak var scrollerConstraintX: NSLayoutConstraint!
@@ -32,19 +42,33 @@ class ViewController: UIViewController, UIScrollViewDelegate{
         self.scrollerConstraintX.constant = self.scrollView.contentOffset.x/3;
         self.view.layoutIfNeeded()
         
+//        if self.scrollView.contentOffset.x >= 0.0 && self.scrollView.contentOffset.x < self.view.frame.width{
+//            
+//            print ("in trainview")
+//            
+//        } else if self.scrollView.contentOffset.x >= self.view.frame.width && self.scrollView.contentOffset.x < self.view.frame.width*2{
+//            
+//            print ("in raceMeview")
+//        
+//        } else if self.scrollView.contentOffset.x >= self.view.frame.width * 2 {
+//            
+//            print ("in competeview")
+//        }
+        
+        if self.scrollView.contentOffset.x == 0.0 {
+                
+            self.VCDelegate = self.childViewControllers[0] as? TrainViewController
+            self.VCDelegate?.registerAsCurrentViewController()
+            
+        } else if self.scrollView.contentOffset.x == self.view.frame.width {
+            
+            self.VCDelegate = self.childViewControllers[1].childViewControllers[0] as? RaceMeViewController
+            self.VCDelegate?.registerAsCurrentViewController()
+            
+        } else if self.scrollView.contentOffset.x == self.view.frame.width * 2 {
+
+        }
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     @IBAction func trainNavButtonPressed(sender: UIButton) {
         //animation for resetting the content to the particular view controller and also adjusting scroller
@@ -53,10 +77,8 @@ class ViewController: UIViewController, UIScrollViewDelegate{
             self.scrollView.contentOffset.x = 0.0;
             self.view.layoutIfNeeded()
             }, completion: nil)
-        
     }
 
-    
     @IBAction func competeNavButtonPressed(sender: UIButton) {
         //animation for resetting the content to the particular view controller and also adjusting scroller
         self.scrollerConstraintX.constant = self.view.frame.width/3;
