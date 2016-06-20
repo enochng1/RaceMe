@@ -10,7 +10,8 @@ import Foundation
 import CoreLocation
 
 protocol LocationManagerDelegate : class {
-
+    
+    //notifies class with updated location
     func updatedLocation(currentLocation : CLLocation)
 
 }
@@ -46,8 +47,6 @@ class LocationManager : NSObject, CLLocationManagerDelegate {
         if let lastLocation = locations.last {
             LMDelegate?.updatedLocation(lastLocation)
         }
-        
-        //print(currentLocation)
     }
     
     func stopLocationManager (){

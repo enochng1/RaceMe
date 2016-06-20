@@ -1,5 +1,5 @@
 //
-//  RaceMeViewController.swift
+//  RecordsViewController.swift
 //  RaceMe
 //
 //  Created by Enoch Ng on 2016-06-19.
@@ -8,6 +8,6 @@
 
 import UIKit
 
-class RaceMeViewController: UIViewController {
+class RecordsViewController: UIViewController {
     
 }

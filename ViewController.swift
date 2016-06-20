@@ -9,7 +9,7 @@
 import UIKit
 import Mapbox
 
-protocol setAsCurrentViewControllerDelegate : class {
+protocol setAsvasdfasdfCurrentViewControllerDelegate : class {
     
     func registerAsCurrentViewController()
     
@@ -57,13 +57,13 @@ class ViewController: UIViewController, UIScrollViewDelegate{
         
         if self.scrollView.contentOffset.x == 0.0 {
                 
-            self.VCDelegate = self.childViewControllers[0] as? TrainViewController
-            self.VCDelegate?.registerAsCurrentViewController()
+//            self.VCDelegate = self.childViewControllers[0] as? TrainViewController
+//            self.VCDelegate?.registerAsCurrentViewController()
             
         } else if self.scrollView.contentOffset.x == self.view.frame.width {
             
-            self.VCDelegate = self.childViewControllers[1].childViewControllers[0] as? RaceMeViewController
-            self.VCDelegate?.registerAsCurrentViewController()
+//            self.VCDelegate = self.childViewControllers[1].childViewControllers[0] as? RaceMeViewController
+//            self.VCDelegate?.registerAsCurrentViewController()
             
         } else if self.scrollView.contentOffset.x == self.view.frame.width * 2 {
 
