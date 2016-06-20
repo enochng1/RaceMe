@@ -14,54 +14,48 @@ import RealmSwift
 class Run : Object {
     
     //admin specific
-    dynamic var trackName : String?
+    dynamic var trackName = ""
     dynamic var dateRan : NSDate?
-    dynamic var areaLocation : String?
-    dynamic var trackImageURL: String?
-    
-    //track specifics
-    let realmTrackedLocations = List<RealmCLLocation>()
-    dynamic var totalDistance = 0.0
+    dynamic var areaLocation = ""
+    //dynamic var trackImageURL: String?
+    //dynamic var trackCreator : String?
     
     //run specifics
     dynamic var totalAveragePace = 0.0
-    dynamic var totalTime = 0.0
+    dynamic var totalTimeSeconds = 0.0
+    let footPrints = List<TrackPoint>()
+    dynamic var distanceRanInMetres = 0.0
     
-    func generateTrackName(){
-        
-        if(totalDistance > 1){
-            trackName = String(format: "%0.1f KM ",totalDistance)+areaLocation!+" Track"
-        } else {
-            trackName = String(format: "%0.0f Metres ",totalDistance*1000)+areaLocation!+" Track"
-        }
-        
+    //isRace
+    dynamic var isRace = false
+    dynamic var ghostName = ""
+    
+    dynamic var endDistanceDifference = 0.0
+    dynamic var endTimeDifference = 0.0
+    
+    
+    func distanceRanInKilometres () -> Double {
+        return distanceRanInMetres * 1000
+    }
+
+    func distanceRanInKilometresToString() -> String {
+        return String(format: "%0.2f KM", self.distanceRanInKilometres())
     }
     
-    func totalDistanceTranslation() -> String{
-        if(totalDistance > 1){
-            return String(format: "%0.1f KM ",totalDistance)
-        } else {
-            return String(format: "%0.0f Metres ",totalDistance*1000)
-        }
-    }
-    
-    func totalTimeTranslation() -> String{
-        
-        let hours = (totalTime - totalTime % 3600) / 3600
-        
-        let minutes = ((totalTime - hours * 3600) - (totalTime - hours * 3600) % 60) / 60
-        
-        let seconds = (totalTime - hours * 3600 - minutes * 60)
-        
+    //time functions
+    func formattedTime() -> String{
+        let hours = (totalTimeSeconds - totalTimeSeconds % 3600) / 3600
+        let minutes = ((totalTimeSeconds - hours * 3600) - (totalTimeSeconds  - hours * 3600) % 60) / 60
+        let seconds = (totalTimeSeconds  - hours * 3600 - minutes * 60)
         return zeroAdder(hours)+" : "+zeroAdder(minutes) + " : "+zeroAdder(seconds)
     }
-    
+
+    //formatting for time translation
     func zeroAdder(timeToString : Double) -> String{
         if(timeToString > 9){
             return String(format: "%0.0f", timeToString)
         } else {
             return String(format: "0%0.0f", timeToString)
         }
-        
     }
 }
