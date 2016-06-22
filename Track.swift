@@ -20,6 +20,7 @@ class Track : Object {
     //track specifics
     let trackPoints = List<TrackPoint>()
     dynamic var totalDistanceMetres = 0.0
+    dynamic var fastestRecordInSeconds = 0.0
     
     //session runs at track
     let runs = List<Run>()
@@ -28,7 +29,7 @@ class Track : Object {
     
     //track functions
     func totalDistanceKilometres () -> Double {
-        return totalDistanceMetres * 1000
+        return totalDistanceMetres / 1000
     }
     
     func TotalDistanceKilometresToString() -> String {
@@ -47,8 +48,6 @@ class Track : Object {
         return 0.0
     }
     
-    
-    
     //checkPoint functions
     func startPointAsCLLocation() -> CLLocation{
         return trackPoints.first!.trackPointToCLLocation()
@@ -66,11 +65,39 @@ class Track : Object {
         return trackPoints.last!.trackPointToCLLocationCoordinate2D()
     }
     
+    func finishedRuns() -> [Run]{
     
+        var finishedRuns = [Run]()
+        
+        if self.runs.count > 0 {
+            
+            for run in self.runs {
+                
+                if run.finishedRace {
+                    finishedRuns.append(run)
+                }
+            }
+        }
+        return finishedRuns
+    }
     
     //run functions
-    func fastestRecord(){
-    
+    func fastestRecord() -> Run{
+        
+        let finRuns = self.finishedRuns()
+        
+        if finRuns.count > 0 {
+            
+            let timeSortDescriptor = NSSortDescriptor(key: "totalTimeSeconds", ascending: true)
+            
+            if let finishedRunsSortedByTime = (finRuns as NSArray).sortedArrayUsingDescriptors([timeSortDescriptor]) as? [Run] {
+                
+                return finishedRunsSortedByTime.first!
+                
+             }
+                
+           }
+         return Run()
     }
     
 }
