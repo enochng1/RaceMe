@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import CoreLocation
 
 protocol setAsCurrentViewControllerDelegate : class {
     
@@ -15,7 +16,7 @@ protocol setAsCurrentViewControllerDelegate : class {
     
 }
 
-class HomeViewController: UIViewController, UIScrollViewDelegate{
+class HomeViewController: UIViewController, UIScrollViewDelegate, LocationManagerDelegate{
 
     @IBOutlet weak var scrollView: UIScrollView!
 
@@ -23,12 +24,23 @@ class HomeViewController: UIViewController, UIScrollViewDelegate{
     
     var locationManager = LocationManager.sharedInstance
     
+    var currentLocation = CLLocation()
+    
     weak var ViewControllerDelegate : setAsCurrentViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         locationManager.startLocationManager()
     }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(true)
+        locationManager.LMDelegate = self
+    }
+    
+    func updatedLocation(currentLocation: CLLocation){
+        self.currentLocation = currentLocation
+        }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
         
@@ -39,13 +51,10 @@ class HomeViewController: UIViewController, UIScrollViewDelegate{
         
         if self.scrollView.contentOffset.x == 0.0 {
             
-            //            self.VCDelegate = self.childViewControllers[0] as? TrainViewController
-            //            self.VCDelegate?.registerAsCurrentViewController()
-            
         } else if self.scrollView.contentOffset.x == self.view.frame.width {
             
-            //            self.VCDelegate = self.childViewControllers[1].childViewControllers[0] as? RaceMeViewController
-            //            self.VCDelegate?.registerAsCurrentViewController()
+            self.ViewControllerDelegate = self.childViewControllers[1] as? RaceMeViewController
+            self.ViewControllerDelegate?.registerAsCurrentViewController()
             
         } else if self.scrollView.contentOffset.x == self.view.frame.width * 2 {
             
@@ -73,7 +82,7 @@ class HomeViewController: UIViewController, UIScrollViewDelegate{
             self.scrollView.contentOffset.x = self.view.frame.width;
             self.view.layoutIfNeeded()
             }, completion: nil)
-
+        
     }
     
     @IBAction func competeButtonPressed(sender: UIButton) {
