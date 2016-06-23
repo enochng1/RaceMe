@@ -1,4 +1,4 @@
-//
+//(user.currentLocation?.distanceFromLocation(ghost.currentLocation!))!
 //  AppDelegate.swift
 //  RaceMe
 //
@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Parse
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,6 +17,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        
+        RunParse.registerSubclass()
+        TrackPointParse.registerSubclass()
+        
+        let configuration = ParseClientConfiguration {
+            $0.applicationId = "ySPn1mS1YYosRnyMhwpPDAcGGuZ3d6TLxkbg7Mo6"
+            $0.clientKey = "gKZvfhdqCYutjbZM5h0pCIIEEJmUWKuvZ5uNU7lX"
+        }
+        Parse.initializeWithConfiguration(configuration)
         
         
         return true

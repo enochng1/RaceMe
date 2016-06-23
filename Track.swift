@@ -13,31 +13,37 @@ import RealmSwift
 
 class Track : Object {
     
-    //admin specifics
+     //MARK: - Admin Variables -
     dynamic var trackCreator = ""
     dynamic var trackLocation = ""
+    dynamic var trackID = ""
+    dynamic var dateCreated : NSDate?
 
-    //track specifics
-    let trackPoints = List<TrackPoint>()
+     //MARK: - Track Variables -
+    var trackPoints = List<TrackPoint>()
     dynamic var totalDistanceMetres = 0.0
     dynamic var fastestRecordInSeconds = 0.0
     
-    //session runs at track
-    let runs = List<Run>()
+    //MARK: - Session Runs Variable -
+    var runs = List<Run>()
 
+    //MARK: - Admin Methods -
+    func generateRandomTrackID() {
+        let uuid = NSUUID().UUIDString
+        trackID = uuid
+    }
     
-    
-    //track functions
+    //MARK: - Track Methods -
     func totalDistanceKilometres () -> Double {
         return totalDistanceMetres / 1000
     }
     
     func TotalDistanceKilometresToString() -> String {
-        return String(format: "%0.2f KM", self.totalDistanceKilometres())
+        return String(format: "%0.2f km", self.totalDistanceKilometres())
     }
     
     func TotalDistanceMetresToString() -> String {
-        return String(format: "%0.0f Metres ",totalDistanceMetres)
+        return String(format: "%0.0f metres ",totalDistanceMetres)
     }
     
     func maxAltitude() -> CLLocationDistance {
@@ -48,7 +54,7 @@ class Track : Object {
         return 0.0
     }
     
-    //checkPoint functions
+    //MARK: - Checkpoint Methods -
     func startPointAsCLLocation() -> CLLocation{
         return trackPoints.first!.trackPointToCLLocation()
     }
@@ -65,6 +71,7 @@ class Track : Object {
         return trackPoints.last!.trackPointToCLLocationCoordinate2D()
     }
     
+    //MARK: - Run Handling Methods -
     func finishedRuns() -> [Run]{
     
         var finishedRuns = [Run]()
@@ -81,7 +88,7 @@ class Track : Object {
         return finishedRuns
     }
     
-    //run functions
+    //get the fastest record
     func fastestRecord() -> Run{
         
         let finRuns = self.finishedRuns()

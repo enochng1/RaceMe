@@ -13,7 +13,12 @@ import RealmSwift
 
 class RaceMeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, setAsCurrentViewControllerDelegate, MGLMapViewDelegate  {
     
+    @IBOutlet weak var startRunButton: UIButton!
     @IBOutlet weak var mapView: MGLMapView!
+    
+    @IBOutlet weak var promptLabel: UILabel!
+    
+    @IBOutlet weak var startRunLongOverlay: UIImageView!
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -36,6 +41,19 @@ class RaceMeViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     override func viewDidAppear(animated: Bool) {
+        
+        if allTracks.count > 0 {
+            startRunButton.alpha = 1.0
+            startRunButton.userInteractionEnabled = true
+            promptLabel.alpha = 0.0
+        } else {
+            startRunButton.userInteractionEnabled = false
+            startRunButton.alpha = 0.4
+            promptLabel.alpha = 1.0
+        }
+        
+        
+        
         if let annotations = mapView.annotations {
             mapView.removeAnnotations(annotations)
         }
@@ -53,6 +71,8 @@ class RaceMeViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func registerAsCurrentViewController(){
+        
+         tableView.flashScrollIndicators()
         
         if let annotations = mapView.annotations {
             mapView.removeAnnotations(annotations)
@@ -87,6 +107,7 @@ class RaceMeViewController: UIViewController, UITableViewDelegate, UITableViewDa
         cell.distanceLabel.text = String(format:"%0.2f", (track?.totalDistanceKilometres())!)
         cell.distanceLabel.textColor = colorOfCorrespondingDistance((track?.totalDistanceMetres)!)
         cell.kmLabel.textColor = colorOfCorrespondingDistance((track?.totalDistanceMetres)!)
+        
         cell.bestTimeLabel.text = track?.fastestRecord().formattedTime()
         
         return cell
@@ -117,7 +138,28 @@ class RaceMeViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBAction func startRaceButtonPressed(sender: UIButton) {
         
         
-        self.performSegueWithIdentifier("raceMeToRunMode", sender: nil)
+        startRunLongOverlay.transform =  CGAffineTransformMakeScale(0.1,0.1)
+        
+        UIView.animateWithDuration(0.2, animations: {
+            
+            self.startRunLongOverlay.alpha = 0.4
+            self.startRunLongOverlay.transform =  CGAffineTransformMakeScale(1,1)
+            
+            }, completion: { (finished: Bool) -> Void in
+                
+                UIView.animateWithDuration(0.4, animations: {
+                    
+                    self.startRunLongOverlay.alpha = 0.0
+                   self.startRunLongOverlay.transform =  CGAffineTransformMakeScale(1,1)
+                    
+                    }, completion: { (finished: Bool) -> Void in
+                        
+                        self.performSegueWithIdentifier("raceMeToRunMode", sender: nil)
+                        
+                })
+        })
+
+
         
     }
     
@@ -149,6 +191,7 @@ class RaceMeViewController: UIViewController, UITableViewDelegate, UITableViewDa
             coordinates.append(trackPoint.trackPointToCLLocationCoordinate2D())
             
         }
+        
         
         let line = MGLPolyline(coordinates: &coordinates, count: UInt(coordinates.count))
         mapView.addAnnotation(line)
@@ -191,14 +234,6 @@ class RaceMeViewController: UIViewController, UITableViewDelegate, UITableViewDa
         return true
     }
     
-    func mapViewSetCamera() {
-        
-        let camera = MGLMapCamera(lookingAtCenterCoordinate: (currentTrack.trackPoints.first?.trackPointToCLLocationCoordinate2D())!, fromDistance: currentTrack.totalDistanceMetres, pitch: 55, heading: 45)
-        // Animate the camera movement over 5 seconds.
-        mapView.setCamera(camera, animated: true)
-    
-    }
-    
     func mapView(mapView: MGLMapView, strokeColorForShapeAnnotation annotation: MGLShape) -> UIColor {
         // Give our polyline a unique color by checking for its `title` property
         return colorOfCorrespondingDistance(currentTrack.totalDistanceMetres)
@@ -220,4 +255,8 @@ class RaceMeViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
         
     }
+    
+
+
+    
 }
