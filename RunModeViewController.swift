@@ -678,7 +678,6 @@ class RunModeViewController: UIViewController,  MGLMapViewDelegate, LocationMana
                 
                 let bestRun = track.fastestRecord()
                 print(bestRun.totalTimeSeconds)
-                
                 userRun.endTimeDifference =  track.runs.first!.totalTimeSeconds - bestRun.totalTimeSeconds
                 
                 
