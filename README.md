@@ -1,4 +1,4 @@
-## ![alt text](https://raw.githubusercontent.com/enochng1/RaceMe/master/prelim%20interface%203-24.png)  RaceMe
+## ![alt text](https://raw.githubusercontent.com/enochng1/RaceMe/master/gitIcon.png)  RaceMe
 
 ![alt text](https://raw.githubusercontent.com/enochng1/RaceMe/master/raceMeGitImage.png) 
  
