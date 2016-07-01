@@ -13,28 +13,34 @@ import RealmSwift
 
 class Run : Object {
     
-    //admin specific
-    dynamic var trackName = ""
+    //MARK: - Admin Variables -
+    dynamic var runID = ""
+    dynamic var trackID = ""
     dynamic var dateRan : NSDate?
     dynamic var areaLocation = ""
-    //dynamic var trackImageURL: String?
-    //dynamic var trackCreator : String?
+    dynamic var creator = ""
     
-    //run specifics
-    dynamic var totalAveragePace = 0.0
+    //MARK: - Run Statistics Variables -
+   // dynamic var totalAveragePace = 0.0
     dynamic var totalTimeSeconds = 0.0
-    let footPrints = List<TrackPoint>()
+    var footPrints = List<TrackPoint>()
     dynamic var distanceRanInMetres = 0.0
     
-    //isRace
+   //MARK: - Race Additional Variables -
     dynamic var isRace = false
     dynamic var ghostName = ""
     dynamic var finishedRace = false
-    
     dynamic var endDistanceDifference = 0.0
     dynamic var endTimeDifference = 0.0
     
     
+    //MARK: - Admin Methods -
+    func generateRandomRunID() {
+        let uuid = NSUUID().UUIDString
+        runID = uuid
+    }
+    
+    //MARK: - Distance Methods -
     func distanceRanInKilometres () -> Double {
         return distanceRanInMetres / 1000
     }
@@ -43,6 +49,7 @@ class Run : Object {
         return String(format: "%0.2f km", self.distanceRanInKilometres())
     }
     
+     //MARK: - Pace Methods -
     func averageSpeed() -> Double {
         return distanceRanInMetres / totalTimeSeconds
     }
@@ -73,7 +80,7 @@ class Run : Object {
         }
     }
     
-    //time functions
+     //MARK: - Time Methods -
     func formattedTime() -> String{
         let hours = (totalTimeSeconds - totalTimeSeconds % 3600) / 3600
         let minutes = ((totalTimeSeconds - hours * 3600) - (totalTimeSeconds  - hours * 3600) % 60) / 60

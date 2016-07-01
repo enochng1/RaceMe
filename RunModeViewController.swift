@@ -65,6 +65,7 @@ class RunModeViewController: UIViewController,  MGLMapViewDelegate, LocationMana
     
     //race variables
     var raceStarted = false
+    var endTimeDifference = 0.0
     
     
     // MARK: - View Controller Setup -
@@ -89,7 +90,7 @@ class RunModeViewController: UIViewController,  MGLMapViewDelegate, LocationMana
             //showTrack on Map First
             showTrack(track)
             if let firstRunOfTrack = track.runs.first {
-            drawTrackCheckPointsFor(firstRunOfTrack)
+                drawTrackCheckPointsFor(firstRunOfTrack)
                 
             }
         }
@@ -242,6 +243,46 @@ class RunModeViewController: UIViewController,  MGLMapViewDelegate, LocationMana
         return checkPointAnnotationImage
     }
     
+    func mapView(mapView: MGLMapView, annotationCanShowCallout annotation: MGLAnnotation) -> Bool {
+        return true
+    }
+    
+    func mapView(mapView: MGLMapView, lineWidthForPolylineAnnotation annotation: MGLPolyline) -> CGFloat {
+        // Set the line width for polyline annotations
+        if (annotation.title == "track") {
+            return 6.0
+        }
+        else if (annotation.title == "ghostBreadCrumbs") {
+            
+            return 4.0
+            
+        } else if (annotation.title == "userBreadCrumbs") {
+            
+            return 2.0
+        } else {
+            
+            return 2.0
+        }
+    }
+    
+    func mapView(mapView: MGLMapView, strokeColorForShapeAnnotation annotation: MGLShape) -> UIColor {
+        // Give our polyline a unique color by checking for its `title` property
+        if (annotation.title == "track" && annotation is MGLPolyline) {
+            
+            return UIColor.whiteColor()
+        }
+        else if (annotation.title == "ghostBreadCrumbs" && annotation is MGLPolyline) {
+            
+            return UIColor.raceMeRedColor()
+            
+        } else if (annotation.title == "userBreadCrumbs" && annotation is MGLPolyline) {
+            
+            return UIColor.raceMeOrangeColor()
+            
+        }
+        return UIColor.raceMeOrangeColor()
+    }
+    
     //MARK: - Runner Location Logic & Conditionals -
     
     func updatedLocation(currentLocation: CLLocation){
@@ -296,11 +337,12 @@ class RunModeViewController: UIViewController,  MGLMapViewDelegate, LocationMana
             drawRunFor(userRun)
         }
     }
-
+    
     func setUpRun(){
         //creat a new run object, set a new timer
         //userRun = Run()
         userRun.dateRan = NSDate()
+        userRun.areaLocation = trackLocationLabel.text!
         timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(secondIncrement), userInfo: nil, repeats: true)
         
         //because this is a run, set tint to only orange
@@ -311,6 +353,9 @@ class RunModeViewController: UIViewController,  MGLMapViewDelegate, LocationMana
         newStartPoint.altitude = user.currentLocation!.altitude
         newStartPoint.latitude = user.currentLocation!.coordinate.latitude
         newStartPoint.longitude = user.currentLocation!.coordinate.longitude
+        newStartPoint.speed = user.currentLocation!.speed
+        newStartPoint.timeStamp = NSDate()
+        
         userRun.footPrints.append(newStartPoint)
         
         //annotate the start Point
@@ -331,12 +376,16 @@ class RunModeViewController: UIViewController,  MGLMapViewDelegate, LocationMana
         newStartPoint.altitude = user.currentLocation!.altitude
         newStartPoint.latitude = user.currentLocation!.coordinate.latitude
         newStartPoint.longitude = user.currentLocation!.coordinate.longitude
+        newStartPoint.speed = user.currentLocation!.speed
+        newStartPoint.timeStamp = NSDate()
+        
+        
         userRun.footPrints.append(newStartPoint)
         
         //declare the first checkPoint counter for the next kilometre
         checkPointTracker = 1
     }
-
+    
     
     func updateRunFor(aRunner: Runner, aRun: Run){
         
@@ -355,6 +404,8 @@ class RunModeViewController: UIViewController,  MGLMapViewDelegate, LocationMana
         newTrackPoint.altitude = aRunner.currentLocation!.altitude
         newTrackPoint.latitude = aRunner.currentLocation!.coordinate.latitude
         newTrackPoint.longitude = aRunner.currentLocation!.coordinate.longitude
+        newTrackPoint.speed = aRunner.currentLocation!.speed
+        newTrackPoint.timeStamp = NSDate()
         
         if(aRun.distanceRanInKilometres() > Double(checkPointTracker)){
             newTrackPoint.checkPoint = checkPointTracker
@@ -363,7 +414,7 @@ class RunModeViewController: UIViewController,  MGLMapViewDelegate, LocationMana
         
         aRun.footPrints.append(newTrackPoint)
     }
-
+    
     
     func detectStartProximity(){
         
@@ -397,7 +448,9 @@ class RunModeViewController: UIViewController,  MGLMapViewDelegate, LocationMana
         
         if(distanceToStartPoint < 5){
             print("runEnded")
+            
             finishRunButtonPressed(UIButton())
+            
             userRun.finishedRace = true
         }
     }
@@ -441,7 +494,7 @@ class RunModeViewController: UIViewController,  MGLMapViewDelegate, LocationMana
         endPointIndicator.title = "Ending Point"
         mapView.addAnnotation(endPointIndicator)
     }
-
+    
     func updateUI(){
         
         distanceLabel.text = userRun.distanceRanInKilometresToString()
@@ -450,19 +503,101 @@ class RunModeViewController: UIViewController,  MGLMapViewDelegate, LocationMana
         
         if userRun.isRace {
             
+            if ghost.ghostStepsCounter < track.trackPoints.count - 1 && ghost.ghostStepsCounter > 1{
+                
+                distanceDiffLabel.textColor = getDifferenceColor(userIsAhead())
+                timeDiffLabel.textColor = distanceDiffLabel.textColor
+                
+                let userGhostAbsoluteDistance = (user.currentLocation?.distanceFromLocation(ghost.currentLocation!))!
+                
+                var timeDifference = 0.0
+                
+                if userIsAhead() {
+                    
+                    distanceDiffLabel.text = String(format: "+ %0.0f m", userGhostAbsoluteDistance)
+                    
+                    if ghost.currentLocation!.speed > 0{
+                        
+                        timeDifference = userGhostAbsoluteDistance / ghost.currentLocation!.speed
+                        timeDiffLabel.text = String(format: "+ %0.2f secs", timeDifference)
+                    } else {
+                        timeDiffLabel.text = ""
+                    }
+                    
+                } else {
+                    
+                    distanceDiffLabel.text = String(format: "- %0.0f m", userGhostAbsoluteDistance)
+                    
+                    if user.currentLocation!.speed > 0{
+                        timeDifference = userGhostAbsoluteDistance / user.currentLocation!.speed
+                        endTimeDifference = timeDifference
+                        timeDiffLabel.text = String(format: "- %0.2f secs", timeDifference)
+                    } else {
+                        timeDiffLabel.text = ""
+                    }
+                    
+                }
+                
+                
+                
+            }
         }
+    }
+    
+    func userIsAhead() -> Bool {
+        
+        
+        if ghost.ghostStepsCounter < track.trackPoints.count - 1 && ghost.ghostStepsCounter > 1{
+            
+            let prevStep = track.trackPoints[ghost.ghostStepsCounter - 2]
+            
+            let nextStep = track.trackPoints[ghost.ghostStepsCounter]
+            
+            let userGhostAbsoluteDistance = user.currentLocation?.distanceFromLocation(ghost.currentLocation!)
+            
+            let userPrevStepAbsoluteDistance = user.currentLocation?.distanceFromLocation(prevStep.trackPointToCLLocation())
+            
+            let ghostPrevStepAbsoluteDistance = ghost.currentLocation?.distanceFromLocation(prevStep.trackPointToCLLocation())
+            
+            let userNextStepAbsoluteDistance = user.currentLocation?.distanceFromLocation(nextStep.trackPointToCLLocation())
+            
+            let ghostNextStepAbsoluteDistance = ghost.currentLocation?.distanceFromLocation(nextStep.trackPointToCLLocation())
+            
+            if userGhostAbsoluteDistance < userNextStepAbsoluteDistance && userGhostAbsoluteDistance > userPrevStepAbsoluteDistance {
+                
+                return false
+            } else if userNextStepAbsoluteDistance > userPrevStepAbsoluteDistance && userNextStepAbsoluteDistance > ghostNextStepAbsoluteDistance && userPrevStepAbsoluteDistance < ghostPrevStepAbsoluteDistance {
+                return false
+            } else if userPrevStepAbsoluteDistance > userNextStepAbsoluteDistance && ghostPrevStepAbsoluteDistance < userPrevStepAbsoluteDistance && ghostNextStepAbsoluteDistance > userNextStepAbsoluteDistance {
+                return true
+            } else if userGhostAbsoluteDistance > userNextStepAbsoluteDistance && userGhostAbsoluteDistance < userPrevStepAbsoluteDistance {
+                return true
+            }
+            
+        }
+        return true
+    }
+    
+    func getDifferenceColor(ahead: Bool) -> UIColor {
+        
+        if ahead {
+            return UIColor.raceMeNeonGreenColor()
+        } else {
+            return UIColor.raceMeRedColor()
+        }
+        
     }
     
     func fadeOutView(view: UIView){
         
-        UIView.animateWithDuration(0.75, delay: 0, options: .CurveEaseInOut, animations: {
+        UIView.animateWithDuration(0.8, delay: 0, options: .CurveEaseInOut, animations: {
             view.alpha = 0.0
             }, completion: nil)
     }
     
     func fadeInView(view : UIView){
         
-        UIView.animateWithDuration(0.75, delay: 0.5, options: .CurveEaseInOut, animations: {
+        UIView.animateWithDuration(0.8, delay: 0.5, options: .CurveEaseInOut, animations: {
             view.alpha = 1.0
             }, completion: nil)
     }
@@ -471,14 +606,14 @@ class RunModeViewController: UIViewController,  MGLMapViewDelegate, LocationMana
         
         view.transform =  CGAffineTransformMakeScale(0.1,0.1)
         
-        UIView.animateWithDuration(0.15, animations: {
+        UIView.animateWithDuration(0.2, animations: {
             
             view.alpha = 0.4
             view.transform =  CGAffineTransformMakeScale(1,1)
             
             }, completion: { (finished: Bool) -> Void in
                 
-                UIView.animateWithDuration(0.1, animations: {
+                UIView.animateWithDuration(0.4, animations: {
                     
                     view.alpha = 0.0
                     view.transform =  CGAffineTransformMakeScale(1,1)
@@ -489,7 +624,7 @@ class RunModeViewController: UIViewController,  MGLMapViewDelegate, LocationMana
         })
         
     }
-
+    
     // MARK: - User Interaction Button Press -
     
     @IBAction func startTrackingRun(sender: UIButton) {
@@ -497,7 +632,7 @@ class RunModeViewController: UIViewController,  MGLMapViewDelegate, LocationMana
         if !runTracking {
             
             if(userRun.isRace){
-               
+                
                 setUpRace()
                 raceStarted = true
                 
@@ -519,7 +654,10 @@ class RunModeViewController: UIViewController,  MGLMapViewDelegate, LocationMana
         
         //stop tracking user
         runTracking = false
-        updateUI()
+        
+        if runTracking {
+            updateUI()
+        }
         //stop timer
         timer.invalidate()
         
@@ -529,8 +667,31 @@ class RunModeViewController: UIViewController,  MGLMapViewDelegate, LocationMana
         
         //update UI to reflect the whole course
         if !userRun.isRace {
-        annotateEndPoint()
-        //userRun.finishedRace = true
+            annotateEndPoint()
+        } else {
+            
+            if timeDiffLabel.textColor == UIColor.raceMeNeonGreenColor() {
+                
+                if ghost.currentLocation != nil {
+                    userRun.endDistanceDifference = (user.currentLocation?.distanceFromLocation(ghost.currentLocation!))!
+                }
+                
+                let bestRun = track.fastestRecord()
+                print(bestRun.totalTimeSeconds)
+                userRun.endTimeDifference =  track.runs.first!.totalTimeSeconds - bestRun.totalTimeSeconds
+                
+                
+            } else if timeDiffLabel.textColor  == UIColor.raceMeRedColor(){
+                
+                if ghost.currentLocation != nil {
+                    userRun.endDistanceDifference = -(user.currentLocation?.distanceFromLocation(ghost.currentLocation!))!
+                }
+                
+                let bestRun = track.fastestRecord()
+                print(bestRun.totalTimeSeconds)
+                userRun.endTimeDifference = track.runs.first!.totalTimeSeconds - bestRun.totalTimeSeconds
+                
+            }
         }
         
         endRunUpdateMapViewWith(userRun)
@@ -563,11 +724,12 @@ class RunModeViewController: UIViewController,  MGLMapViewDelegate, LocationMana
                     }
                 }
             }
-
+            
         } else {
-
-           self.mapView.removeAnnotations(self.mapView.annotations!)
-
+            
+            if let annotations = self.mapView.annotations {
+                self.mapView.removeAnnotations(annotations)
+            }
         }
         
         let isRaceContainer = userRun.isRace
@@ -578,11 +740,17 @@ class RunModeViewController: UIViewController,  MGLMapViewDelegate, LocationMana
         
         user = Runner()
         
+        ghost = Runner()
+        ghostRun = Run()
+        ghost.ghostStepsCounter = 0
+        
         //reset UI
         distanceLabel.text = "0.00 km"
         paceLabel.text = "0:00"
         timeLabel.text = "00:00:00"
         paceHeaderLabel.text = "Pace"
+        timeDiffLabel.text = ""
+        distanceDiffLabel.text = ""
         
         //reset button UI
         overlayAnimation(clearButtonOverlay)
@@ -607,46 +775,6 @@ class RunModeViewController: UIViewController,  MGLMapViewDelegate, LocationMana
         }
     }
     
-    func mapView(mapView: MGLMapView, annotationCanShowCallout annotation: MGLAnnotation) -> Bool {
-        return true
-    }
-    
-    func mapView(mapView: MGLMapView, lineWidthForPolylineAnnotation annotation: MGLPolyline) -> CGFloat {
-        // Set the line width for polyline annotations
-        if (annotation.title == "track") {
-            return 6.0
-        }
-        else if (annotation.title == "ghostBreadCrumbs") {
-            
-            return 4.0
-            
-        } else if (annotation.title == "userBreadCrumbs") {
-            
-            return 2.0
-        } else {
-            
-            return 2.0
-        }
-    }
-    
-    func mapView(mapView: MGLMapView, strokeColorForShapeAnnotation annotation: MGLShape) -> UIColor {
-        // Give our polyline a unique color by checking for its `title` property
-        if (annotation.title == "track" && annotation is MGLPolyline) {
-            
-            return UIColor.whiteColor()
-        }
-        else if (annotation.title == "ghostBreadCrumbs" && annotation is MGLPolyline) {
-            
-            return UIColor.raceMeRedColor()
-            
-        } else if (annotation.title == "userBreadCrumbs" && annotation is MGLPolyline) {
-            
-                return UIColor.raceMeOrangeColor()
-            
-        }
-            return UIColor.raceMeOrangeColor()
-    }
-    
     func saveRunToRealm(){
         
         let myRealm = try! Realm()
@@ -654,41 +782,70 @@ class RunModeViewController: UIViewController,  MGLMapViewDelegate, LocationMana
         if(userRun.isRace){
             
             try! myRealm.write {
-                track.runs.append(userRun)
+                
+                let newRunToSave = userRun
+                newRunToSave.areaLocation = trackLocationLabel.text!
+                newRunToSave.generateRandomRunID()
+                newRunToSave.trackID = track.trackID
+                
+                
+                var index = 0
+                for footPrint in newRunToSave.footPrints{
+                    footPrint.runID = userRun.runID
+                    footPrint.index = index
+                    index = index + 1
+                }
+                
+                
+                track.runs.append(newRunToSave)
+                
             }
-    
-        print(track.runs.count)
+            
+            print(track.runs.count)
             
         } else {
             
-            let newTrack = Track()
-            
-            newTrack.trackLocation = userRun.areaLocation
-            
-            newTrack.totalDistanceMetres = userRun.distanceRanInMetres
-            
-            for trackPoint in userRun.footPrints{
-                newTrack.trackPoints.append(trackPoint)
-            }
-            
-            newTrack.runs.append(userRun)
- 
             try! myRealm.write {
+                
+                let newTrack = Track()
+                
+                newTrack.trackLocation = trackLocationLabel.text!
+                newTrack.generateRandomTrackID()
+                newTrack.totalDistanceMetres = userRun.distanceRanInMetres
+                newTrack.dateCreated = NSDate()
+                
+                for trackPoint in userRun.footPrints{
+                    newTrack.trackPoints.append(trackPoint)
+                }
+                
+                userRun.areaLocation = trackLocationLabel.text!
+                userRun.generateRandomRunID()
+                userRun.trackID = newTrack.trackID
+                userRun.finishedRace = true
+                
+                var index = 0
+                for footPrint in userRun.footPrints{
+                    footPrint.runID = userRun.runID
+                    footPrint.index = index
+                    index = index + 1
+                }
+                
+                let newRun = userRun
+                newTrack.runs.append(newRun)
+                        
                 myRealm.add(newTrack)
             }
-        
+            
         }
         
     }
-
+    
     
     @IBAction func backButtonPressed(sender: UIButton) {
         self.dismissViewControllerAnimated(true, completion: nil)
-        finishRunButtonPressed(UIButton())
         clearButtonPressed(UIButton())
-        
+        // finishRunButtonPressed(UIButton())
     }
-    
     
 }
 

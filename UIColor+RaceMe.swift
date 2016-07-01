@@ -23,7 +23,7 @@ extension UIColor {
     }
     
     class func raceMeTextBlueColor () -> UIColor {
-        return UIColor(red:0.35, green:0.75, blue:0.80, alpha:1.0)
+        return UIColor(red:0.123, green:0.526, blue:0.717, alpha:1)
     }
     
     class func raceMeMutedGreyColor () -> UIColor {

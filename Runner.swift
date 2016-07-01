@@ -17,14 +17,19 @@ class Runner : NSObject {
     
     func translateSpeedToPace() -> Double{
         //return 1000/(currentLocation!.speed*60)
-        let kmPerSecond = currentLocation!.speed / 1000
-        
+        if let CL = currentLocation {
+        let kmPerSecond = CL.speed / 1000
+            
+            
         if kmPerSecond != 0 {
         let secondPerKM = 1 / kmPerSecond
         return secondPerKM
         } else {
         return 0
         }
+        }
+        return 0
+        
     }
     
     func paceToString() -> String{
