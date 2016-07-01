@@ -1,5 +1,7 @@
-## ![alt text](https://raw.githubusercontent.com/enochng1/Munch/master/munchAppIcon.png)  RaceMe
+## ![alt text](https://raw.githubusercontent.com/enochng1/RaceMe/master/prelim%20interface%203-24.png)  RaceMe
 
+![alt text](https://raw.githubusercontent.com/enochng1/RaceMe/master/raceMeGitImage.png) 
+ 
 RaceMe is a run tracking + ghosting iOS mobile application. (Lighthouse Labs Project)
 
 Core features:
