@@ -1,0 +1,33 @@
+PODS:
+  - Bolts/Tasks (1.7.0)
+  - DynamicBlurView (1.1.0)
+  - Mapbox-iOS-SDK (3.2.2)
+  - NVActivityIndicatorView (2.7)
+  - Parse (1.13.0):
+    - Bolts/Tasks (~> 1.6)
+  - Realm (1.0.0):
+    - Realm/Headers (= 1.0.0)
+  - Realm/Headers (1.0.0)
+  - RealmSwift (1.0.0):
+    - Realm (= 1.0.0)
+
+DEPENDENCIES:
+  - DynamicBlurView
+  - Mapbox-iOS-SDK
+  - NVActivityIndicatorView
+  - Parse
+  - Realm
+  - RealmSwift
+
+SPEC CHECKSUMS:
+  Bolts: a0058fa3b331c5a1e4402d534f2dae36dbff31e4
+  DynamicBlurView: 315b8e824d2264ec43d546273fe177dee840033e
+  Mapbox-iOS-SDK: 117ba1b0ed31107d3fe5826878a0f1531775aedc
+  NVActivityIndicatorView: dc80f18fb27ac92f0aa87246cc13dc39ed3e9ee0
+  Parse: f51c24d2feb412e4b2d6cc73d37cb24e8d0089bc
+  Realm: e15cd8e7c11d3e576f628ba0b7cb855269b4991c
+  RealmSwift: 3229306d020d96f83b335f87a0dcbf2cef0e6a2b
+
+PODFILE CHECKSUM: 93de5c32024fd8c7393b3517c8c90baa5c8fbcdd
+
+COCOAPODS: 1.0.0

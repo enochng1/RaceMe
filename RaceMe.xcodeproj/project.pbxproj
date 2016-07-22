@@ -1,0 +1,465 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		3E7D5F9BF76076AF30AEC1AB /* Pods_RaceMe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BEE96DD1F1B87069026D5C7 /* Pods_RaceMe.framework */; };
+		77C421BB1D12690C00888554 /* CompeteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77C421BA1D12690C00888554 /* CompeteViewController.swift */; };
+		77C421C31D1344B800888554 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77C421C21D1344B800888554 /* LocationManager.swift */; };
+		77C421C51D14C85400888554 /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77C421C41D14C85400888554 /* Track.swift */; };
+		77C421C81D14CFDF00888554 /* TrackPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77C421C71D14CFDF00888554 /* TrackPoint.swift */; };
+		77C421CA1D14D08F00888554 /* Runner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77C421C91D14D08F00888554 /* Runner.swift */; };
+		77C421CC1D17838600888554 /* NewRunViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77C421CB1D17838600888554 /* NewRunViewController.swift */; };
+		77C421CF1D1783DB00888554 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77C421CE1D1783DB00888554 /* HomeViewController.swift */; };
+		77C421D11D17915800888554 /* RaceMeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77C421D01D17915800888554 /* RaceMeViewController.swift */; };
+		77C421D31D17917500888554 /* RecordsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77C421D21D17917500888554 /* RecordsViewController.swift */; };
+		77C421D51D1794C400888554 /* RunModeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77C421D41D1794C400888554 /* RunModeViewController.swift */; };
+		77C421DA1D18EECD00888554 /* RaceMeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77C421D91D18EECD00888554 /* RaceMeTableViewCell.swift */; };
+		77E1770C1D19F6BB0065171C /* UIColor+RaceMe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E1770B1D19F6BB0065171C /* UIColor+RaceMe.swift */; };
+		77E1770E1D1B06780065171C /* RunParse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E1770D1D1B06780065171C /* RunParse.swift */; };
+		77E177101D1B06880065171C /* TrackPointParse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E1770F1D1B06880065171C /* TrackPointParse.swift */; };
+		77E177141D1B68230065171C /* RecordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E177131D1B68230065171C /* RecordCell.swift */; };
+		77E177161D1B6E060065171C /* RecordHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E177151D1B6E060065171C /* RecordHeaderView.swift */; };
+		77EF57531D0F87DF00C48F1E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77EF57521D0F87DF00C48F1E /* AppDelegate.swift */; };
+		77EF57581D0F87DF00C48F1E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 77EF57561D0F87DF00C48F1E /* Main.storyboard */; };
+		77EF575A1D0F87DF00C48F1E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 77EF57591D0F87DF00C48F1E /* Assets.xcassets */; };
+		77EF575D1D0F87DF00C48F1E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 77EF575B1D0F87DF00C48F1E /* LaunchScreen.storyboard */; };
+		77EF576B1D11DF6D00C48F1E /* Run.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77EF576A1D11DF6D00C48F1E /* Run.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		2BEE96DD1F1B87069026D5C7 /* Pods_RaceMe.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RaceMe.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		77C421BA1D12690C00888554 /* CompeteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompeteViewController.swift; sourceTree = "<group>"; };
+		77C421C21D1344B800888554 /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		77C421C41D14C85400888554 /* Track.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Track.swift; sourceTree = "<group>"; };
+		77C421C71D14CFDF00888554 /* TrackPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackPoint.swift; sourceTree = "<group>"; };
+		77C421C91D14D08F00888554 /* Runner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Runner.swift; sourceTree = "<group>"; };
+		77C421CB1D17838600888554 /* NewRunViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewRunViewController.swift; sourceTree = "<group>"; };
+		77C421CE1D1783DB00888554 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		77C421D01D17915800888554 /* RaceMeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RaceMeViewController.swift; sourceTree = "<group>"; };
+		77C421D21D17917500888554 /* RecordsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordsViewController.swift; sourceTree = "<group>"; };
+		77C421D41D1794C400888554 /* RunModeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunModeViewController.swift; sourceTree = "<group>"; };
+		77C421D91D18EECD00888554 /* RaceMeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RaceMeTableViewCell.swift; sourceTree = "<group>"; };
+		77E1770B1D19F6BB0065171C /* UIColor+RaceMe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+RaceMe.swift"; sourceTree = "<group>"; };
+		77E1770D1D1B06780065171C /* RunParse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunParse.swift; sourceTree = "<group>"; };
+		77E1770F1D1B06880065171C /* TrackPointParse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackPointParse.swift; sourceTree = "<group>"; };
+		77E177131D1B68230065171C /* RecordCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordCell.swift; sourceTree = "<group>"; };
+		77E177151D1B6E060065171C /* RecordHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordHeaderView.swift; sourceTree = "<group>"; };
+		77EF574F1D0F87DF00C48F1E /* RaceMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RaceMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		77EF57521D0F87DF00C48F1E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		77EF57571D0F87DF00C48F1E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		77EF57591D0F87DF00C48F1E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		77EF575C1D0F87DF00C48F1E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		77EF575E1D0F87DF00C48F1E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		77EF576A1D11DF6D00C48F1E /* Run.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Run.swift; sourceTree = "<group>"; };
+		7DB5066183A8268B840EA4D3 /* Pods-RaceMe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RaceMe.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RaceMe/Pods-RaceMe.debug.xcconfig"; sourceTree = "<group>"; };
+		9B93DFF8A2FDFA05C99C898C /* Pods-RaceMe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RaceMe.release.xcconfig"; path = "Pods/Target Support Files/Pods-RaceMe/Pods-RaceMe.release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		77EF574C1D0F87DF00C48F1E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3E7D5F9BF76076AF30AEC1AB /* Pods_RaceMe.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		5D263F425136CDD8678E2B91 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2BEE96DD1F1B87069026D5C7 /* Pods_RaceMe.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		77C421C61D14CA9400888554 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				77C421C21D1344B800888554 /* LocationManager.swift */,
+				77C421C41D14C85400888554 /* Track.swift */,
+				77C421C71D14CFDF00888554 /* TrackPoint.swift */,
+				77E1770F1D1B06880065171C /* TrackPointParse.swift */,
+				77EF576A1D11DF6D00C48F1E /* Run.swift */,
+				77E1770D1D1B06780065171C /* RunParse.swift */,
+				77C421C91D14D08F00888554 /* Runner.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		77C421CD1D1783A300888554 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				77C421CE1D1783DB00888554 /* HomeViewController.swift */,
+				77C421D01D17915800888554 /* RaceMeViewController.swift */,
+				77C421CB1D17838600888554 /* NewRunViewController.swift */,
+				77C421BA1D12690C00888554 /* CompeteViewController.swift */,
+				77C421D21D17917500888554 /* RecordsViewController.swift */,
+				77C421D41D1794C400888554 /* RunModeViewController.swift */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		77C421D61D18579E00888554 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				77EF57561D0F87DF00C48F1E /* Main.storyboard */,
+				77E177131D1B68230065171C /* RecordCell.swift */,
+				77E177151D1B6E060065171C /* RecordHeaderView.swift */,
+				77C421D91D18EECD00888554 /* RaceMeTableViewCell.swift */,
+				77EF575B1D0F87DF00C48F1E /* LaunchScreen.storyboard */,
+				77E1770B1D19F6BB0065171C /* UIColor+RaceMe.swift */,
+			);
+			name = UI;
+			sourceTree = "<group>";
+		};
+		77EF57461D0F87DF00C48F1E = {
+			isa = PBXGroup;
+			children = (
+				77EF57511D0F87DF00C48F1E /* RaceMe */,
+				77EF57501D0F87DF00C48F1E /* Products */,
+				7C515F3BA5096AABBEDD2D5F /* Pods */,
+				5D263F425136CDD8678E2B91 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		77EF57501D0F87DF00C48F1E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				77EF574F1D0F87DF00C48F1E /* RaceMe.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		77EF57511D0F87DF00C48F1E /* RaceMe */ = {
+			isa = PBXGroup;
+			children = (
+				77EF57521D0F87DF00C48F1E /* AppDelegate.swift */,
+				77C421CD1D1783A300888554 /* Controller */,
+				77C421C61D14CA9400888554 /* Model */,
+				77C421D61D18579E00888554 /* UI */,
+				77EF57591D0F87DF00C48F1E /* Assets.xcassets */,
+				77EF575E1D0F87DF00C48F1E /* Info.plist */,
+			);
+			path = RaceMe;
+			sourceTree = "<group>";
+		};
+		7C515F3BA5096AABBEDD2D5F /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				7DB5066183A8268B840EA4D3 /* Pods-RaceMe.debug.xcconfig */,
+				9B93DFF8A2FDFA05C99C898C /* Pods-RaceMe.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		77EF574E1D0F87DF00C48F1E /* RaceMe */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 77EF57611D0F87DF00C48F1E /* Build configuration list for PBXNativeTarget "RaceMe" */;
+			buildPhases = (
+				D3915F40884113CCE90CBF05 /* 📦 Check Pods Manifest.lock */,
+				77EF574B1D0F87DF00C48F1E /* Sources */,
+				77EF574C1D0F87DF00C48F1E /* Frameworks */,
+				77EF574D1D0F87DF00C48F1E /* Resources */,
+				0384F73EDE147A4735C875E1 /* 📦 Embed Pods Frameworks */,
+				7FB2FFE5A001142829750CED /* 📦 Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = RaceMe;
+			productName = RaceMe;
+			productReference = 77EF574F1D0F87DF00C48F1E /* RaceMe.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		77EF57471D0F87DF00C48F1E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0730;
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = "Enoch Ng";
+				TargetAttributes = {
+					77EF574E1D0F87DF00C48F1E = {
+						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = 2JC7Q2V62F;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
+					};
+				};
+			};
+			buildConfigurationList = 77EF574A1D0F87DF00C48F1E /* Build configuration list for PBXProject "RaceMe" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 77EF57461D0F87DF00C48F1E;
+			productRefGroup = 77EF57501D0F87DF00C48F1E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				77EF574E1D0F87DF00C48F1E /* RaceMe */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		77EF574D1D0F87DF00C48F1E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				77EF575D1D0F87DF00C48F1E /* LaunchScreen.storyboard in Resources */,
+				77EF575A1D0F87DF00C48F1E /* Assets.xcassets in Resources */,
+				77EF57581D0F87DF00C48F1E /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0384F73EDE147A4735C875E1 /* 📦 Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RaceMe/Pods-RaceMe-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7FB2FFE5A001142829750CED /* 📦 Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RaceMe/Pods-RaceMe-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D3915F40884113CCE90CBF05 /* 📦 Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		77EF574B1D0F87DF00C48F1E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				77C421C51D14C85400888554 /* Track.swift in Sources */,
+				77C421D51D1794C400888554 /* RunModeViewController.swift in Sources */,
+				77C421C81D14CFDF00888554 /* TrackPoint.swift in Sources */,
+				77E177141D1B68230065171C /* RecordCell.swift in Sources */,
+				77C421C31D1344B800888554 /* LocationManager.swift in Sources */,
+				77E1770E1D1B06780065171C /* RunParse.swift in Sources */,
+				77EF576B1D11DF6D00C48F1E /* Run.swift in Sources */,
+				77C421D11D17915800888554 /* RaceMeViewController.swift in Sources */,
+				77EF57531D0F87DF00C48F1E /* AppDelegate.swift in Sources */,
+				77C421CC1D17838600888554 /* NewRunViewController.swift in Sources */,
+				77E1770C1D19F6BB0065171C /* UIColor+RaceMe.swift in Sources */,
+				77E177101D1B06880065171C /* TrackPointParse.swift in Sources */,
+				77E177161D1B6E060065171C /* RecordHeaderView.swift in Sources */,
+				77C421CA1D14D08F00888554 /* Runner.swift in Sources */,
+				77C421BB1D12690C00888554 /* CompeteViewController.swift in Sources */,
+				77C421CF1D1783DB00888554 /* HomeViewController.swift in Sources */,
+				77C421D31D17917500888554 /* RecordsViewController.swift in Sources */,
+				77C421DA1D18EECD00888554 /* RaceMeTableViewCell.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		77EF57561D0F87DF00C48F1E /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				77EF57571D0F87DF00C48F1E /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		77EF575B1D0F87DF00C48F1E /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				77EF575C1D0F87DF00C48F1E /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		77EF575F1D0F87DF00C48F1E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		77EF57601D0F87DF00C48F1E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		77EF57621D0F87DF00C48F1E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7DB5066183A8268B840EA4D3 /* Pods-RaceMe.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = RaceMe/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.enochng.RaceMe;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		77EF57631D0F87DF00C48F1E /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9B93DFF8A2FDFA05C99C898C /* Pods-RaceMe.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = RaceMe/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.enochng.RaceMe;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		77EF574A1D0F87DF00C48F1E /* Build configuration list for PBXProject "RaceMe" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				77EF575F1D0F87DF00C48F1E /* Debug */,
+				77EF57601D0F87DF00C48F1E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		77EF57611D0F87DF00C48F1E /* Build configuration list for PBXNativeTarget "RaceMe" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				77EF57621D0F87DF00C48F1E /* Debug */,
+				77EF57631D0F87DF00C48F1E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 77EF57471D0F87DF00C48F1E /* Project object */;
+}

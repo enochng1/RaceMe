@@ -1,0 +1,6 @@
+framework module Pods_RaceMe {
+  umbrella header "Pods-RaceMe-umbrella.h"
+
+  export *
+  module * { export * }
+}

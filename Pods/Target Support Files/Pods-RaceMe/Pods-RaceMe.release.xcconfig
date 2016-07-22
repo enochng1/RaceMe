@@ -1,0 +1,11 @@
+EMBEDDED_CONTENT_CONTAINS_SWIFT = YES
+FRAMEWORK_SEARCH_PATHS = $(inherited) "$PODS_CONFIGURATION_BUILD_DIR/Bolts" "$PODS_CONFIGURATION_BUILD_DIR/DynamicBlurView" "$PODS_CONFIGURATION_BUILD_DIR/NVActivityIndicatorView" "$PODS_CONFIGURATION_BUILD_DIR/Parse" "$PODS_CONFIGURATION_BUILD_DIR/Realm" "$PODS_CONFIGURATION_BUILD_DIR/RealmSwift" "${PODS_ROOT}/Mapbox-iOS-SDK/dynamic"
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
+HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/Mapbox-iOS-SDK"
+LD_RUNPATH_SEARCH_PATHS = $(inherited) '@executable_path/Frameworks' '@loader_path/Frameworks'
+OTHER_CFLAGS = $(inherited) -iquote "$PODS_CONFIGURATION_BUILD_DIR/Bolts/Bolts.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/DynamicBlurView/DynamicBlurView.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/NVActivityIndicatorView/NVActivityIndicatorView.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/Parse/Parse.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/Realm/Realm.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/RealmSwift/RealmSwift.framework/Headers" -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/Mapbox-iOS-SDK"
+OTHER_LDFLAGS = $(inherited) -ObjC -framework "Bolts" -framework "DynamicBlurView" -framework "Mapbox" -framework "NVActivityIndicatorView" -framework "Parse" -framework "Realm" -framework "RealmSwift"
+OTHER_SWIFT_FLAGS = $(inherited) "-D" "COCOAPODS"
+PODS_BUILD_DIR = $BUILD_DIR
+PODS_CONFIGURATION_BUILD_DIR = $PODS_BUILD_DIR/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
+PODS_ROOT = ${SRCROOT}/Pods
