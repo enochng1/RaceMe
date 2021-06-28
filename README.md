@@ -4,6 +4,10 @@
  
 RaceMe is a run tracking + ghosting iOS mobile application.
 
+-----------------
+
+## Warning! RaceMe is no longer maintained.
+
 Core features:
 - run tracking
 - ghost runner simulation in real time
